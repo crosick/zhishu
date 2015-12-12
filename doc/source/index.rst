@@ -42,7 +42,7 @@ https://github.com/crosick/zhishu
 
 啊哈哈。
 
-不自嘲一下我怕文档写不下去啊－ －，这事又没有报酬，做着很容易让人怀疑人生意义的。
+不自嘲一下我怕文档写不下去啊－ －，这事又没有报酬，做着很容易让人怀疑人生意义
 
 书的封面也是只单身狗耶！
 
@@ -77,6 +77,32 @@ http://flask.pocoo.org/ 虽然没人会看。
 
    python manage.py test
 
+单元测试结果
+
+.. image:: _static/test.png
+
 或者自由地使用这个网站，反正就那么几个功能。
 
 
+效果截图
+================================
+
+首页
+
+.. image:: _static/figure1.png
+
+问问题
+
+.. image:: _static/figure4.png
+
+答题
+
+.. image:: _static/figure3.png
+
+搜索
+
+.. image:: _static/figure5.png
+
+标签搜索
+
+.. image:: _static/figure6.png

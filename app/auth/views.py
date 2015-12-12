@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 from flask import render_template, redirect, request, url_for, flash
 from flask.ext.login import login_user, logout_user, login_required, \
     current_user
@@ -9,12 +10,14 @@ from .forms import LoginForm, RegistrationForm
 
 @auth.before_app_request
 def before_request():
+    """已认证用户每次登陆都更新最新登录时间"""
     if current_user.is_authenticated():
         current_user.ping()
 
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    """登录"""    
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -28,6 +31,7 @@ def login():
 @auth.route('/logout')
 @login_required
 def logout():
+    """登出"""
     logout_user()
     flash('You have been logged out.')
     return redirect(url_for('main.index'))
@@ -35,6 +39,7 @@ def logout():
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
+    """注册"""
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(email=form.email.data,

@@ -253,7 +253,7 @@ def edit(id):
 @login_required
 @permission_required(Permission.FOLLOW)
 def follow(username):
-    """follow 一个人"""
+    """关注一个人"""
     user = User.query.filter_by(username=username).first()
     if user is None:
         flash('Invalid user.')
@@ -270,7 +270,7 @@ def follow(username):
 @login_required
 @permission_required(Permission.FOLLOW)
 def unfollow(username):
-    """unfollow 一个人"""
+    """取关一个人"""
     user = User.query.filter_by(username=username).first()
     if user is None:
         flash('Invalid user.')
@@ -320,6 +320,7 @@ def followed_by(username):
 @main.route('/all')
 @login_required
 def show_all():
+    """显示全部问题"""
     resp = make_response(redirect(url_for('.index')))
     resp.set_cookie('show_followed', '', max_age=30*24*60*60)
     return resp
@@ -328,6 +329,7 @@ def show_all():
 @main.route('/followed')
 @login_required
 def show_followed():
+    """显示关注的人的问题"""
     resp = make_response(redirect(url_for('.index')))
     resp.set_cookie('show_followed', '1', max_age=30*24*60*60)
     return resp

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>目录文件结构与说明 &mdash; 知数 0.0.1 documentation</title>
+    <title>应用架构说明 &mdash; 知数 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -34,6 +34,9 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="get_started.html" title="运行环境搭建"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">知数 0.0.1 documentation</a> &raquo;</li> 
@@ -46,9 +49,35 @@
           <div class="body">
             
   <div class="section" id="design">
-<span id="id1"></span><h1>目录文件结构与说明<a class="headerlink" href="#design" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>应用架构说明<a class="headerlink" href="#design" title="Permalink to this headline">¶</a></h1>
+<p>后端：</p>
+<ul class="simple">
+<li>flask</li>
+</ul>
+<p>插件：</p>
+<ul class="simple">
+<li>flask-login</li>
+<li>flask-sqlalchemy</li>
+<li>flask-pagedown-mathjax</li>
+<li>flask-moment</li>
+<li>flask-wtf</li>
+<li>flask-whooshalchemy</li>
+<li>...</li>
+</ul>
+<p>前端：</p>
+<ul class="simple">
+<li>bootstrap</li>
+</ul>
+<p>插件：</p>
+<ul class="simple">
+<li>bootstrap-tagsinput</li>
+<li>mathjax</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h1>目录文件结构与说明<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="file-structure">
-<span id="id2"></span><h2>目录结构（隐藏部分细节）<a class="headerlink" href="#file-structure" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h2>目录结构（隐藏部分细节）<a class="headerlink" href="#file-structure" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre>├── ENV             - python环境
 ├── app             - 应用文件夹
 │   ├── auth        - 管用户注册登录的app
@@ -71,24 +100,184 @@
 </div>
 </div>
 <div class="section" id="file-description">
-<span id="id3"></span><h2>部分文件说明<a class="headerlink" href="#file-description" title="Permalink to this headline">¶</a></h2>
+<span id="id4"></span><h2>部分文件说明<a class="headerlink" href="#file-description" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre>views.py            - 控制路由，处理主要逻辑的文件
 forms.py            - 表单类文件
 </pre></div>
 </div>
 </div>
 </div>
-<div class="section" id="id4">
-<h1>数据库模型说明<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id5">
+<h1>数据库模型说明<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="orm">
 <span id="model"></span><h2>ORM 概念<a class="headerlink" href="#orm" title="Permalink to this headline">¶</a></h2>
 <p>对象关系映射（英语：Object Relational Mapping，简称ORM，或O/RM，或O/R mapping），是一种程序设计技术，用于实现面向对象编程语言里不同类型系统的数据之间的转换。从效果上说，它其实是创建了一个可在编程语言里使用的“虚拟对象数据库”。</p>
 <p>这里使用sqlalchemy 作为 Object Relational 映射器。</p>
 </div>
-<div class="section" id="id5">
-<h2>数据模型可视化<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2>数据模型可视化<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>由 sadisplay 生成，变量函数名足够解释自身的功能。。。。</p>
 <img alt="_images/schema.png" src="_images/schema.png" />
+</div>
+</div>
+<div class="section" id="id7">
+<h1>视图函数注解<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-app.main.views">
+<span id="main"></span><h2>main视图函数<a class="headerlink" href="#module-app.main.views" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="app.main.views.after_request">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">after_request</tt><big>(</big><em>response</em><big>)</big><a class="headerlink" href="#app.main.views.after_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>在视图函数处理完后统一调用，负责记录下响应过慢的 query</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.ask">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">ask</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.main.views.ask" title="Permalink to this definition">¶</a></dt>
+<dd><p>发布问题</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.delete_question">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">delete_question</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.main.views.delete_question" title="Permalink to this definition">¶</a></dt>
+<dd><p>删除一个问题</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.edit">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">edit</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.main.views.edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>编辑问题</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.edit_profile">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">edit_profile</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.main.views.edit_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>编辑个人信息</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.edit_profile_admin">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">edit_profile_admin</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.main.views.edit_profile_admin" title="Permalink to this definition">¶</a></dt>
+<dd><p>admin编辑个人信息</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.follow">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">follow</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.main.views.follow" title="Permalink to this definition">¶</a></dt>
+<dd><p>关注一个人</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.followed_by">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">followed_by</tt><big>(</big><em>username</em><big>)</big><a class="headerlink" href="#app.main.views.followed_by" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.followers">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">followers</tt><big>(</big><em>username</em><big>)</big><a class="headerlink" href="#app.main.views.followers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.index">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">index</tt><big>(</big><big>)</big><a class="headerlink" href="#app.main.views.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>首页的。。。没必要注释吧</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.moderate">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">moderate</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.main.views.moderate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.moderate_disable">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">moderate_disable</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.main.views.moderate_disable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.moderate_enable">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">moderate_enable</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.main.views.moderate_enable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.question">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">question</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#app.main.views.question" title="Permalink to this definition">¶</a></dt>
+<dd><p>问题页面</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.search_results">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">search_results</tt><big>(</big><big>)</big><a class="headerlink" href="#app.main.views.search_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>搜索问题</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.server_shutdown">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">server_shutdown</tt><big>(</big><big>)</big><a class="headerlink" href="#app.main.views.server_shutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>为了在测试完后关掉服务器</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.show_all">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">show_all</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.main.views.show_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>显示全部问题</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.show_followed">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">show_followed</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.main.views.show_followed" title="Permalink to this definition">¶</a></dt>
+<dd><p>显示关注的人的问题</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.unfollow">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">unfollow</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.main.views.unfollow" title="Permalink to this definition">¶</a></dt>
+<dd><p>取关一个人</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.unvote">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">unvote</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.main.views.unvote" title="Permalink to this definition">¶</a></dt>
+<dd><p>给回答投反对票</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.user">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">user</tt><big>(</big><em>username</em><big>)</big><a class="headerlink" href="#app.main.views.user" title="Permalink to this definition">¶</a></dt>
+<dd><p>用户个人主页</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.main.views.vote">
+<tt class="descclassname">app.main.views.</tt><tt class="descname">vote</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.main.views.vote" title="Permalink to this definition">¶</a></dt>
+<dd><p>给回答投赞成票</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.auth.views">
+<span id="auth"></span><h2>auth视图函数<a class="headerlink" href="#module-app.auth.views" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="app.auth.views.before_request">
+<tt class="descclassname">app.auth.views.</tt><tt class="descname">before_request</tt><big>(</big><big>)</big><a class="headerlink" href="#app.auth.views.before_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>已认证用户每次登陆都更新最新登录时间</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.auth.views.login">
+<tt class="descclassname">app.auth.views.</tt><tt class="descname">login</tt><big>(</big><big>)</big><a class="headerlink" href="#app.auth.views.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>登录</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.auth.views.logout">
+<tt class="descclassname">app.auth.views.</tt><tt class="descname">logout</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#app.auth.views.logout" title="Permalink to this definition">¶</a></dt>
+<dd><p>登出</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="app.auth.views.register">
+<tt class="descclassname">app.auth.views.</tt><tt class="descname">register</tt><big>(</big><big>)</big><a class="headerlink" href="#app.auth.views.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>注册</p>
+</dd></dl>
+
 </div>
 </div>
 
@@ -100,14 +289,20 @@ forms.py            - 表单类文件
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">目录文件结构与说明</a><ul>
+<li><a class="reference internal" href="#">应用架构说明</a></li>
+<li><a class="reference internal" href="#id2">目录文件结构与说明</a><ul>
 <li><a class="reference internal" href="#file-structure">目录结构（隐藏部分细节）</a></li>
 <li><a class="reference internal" href="#file-description">部分文件说明</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id4">数据库模型说明</a><ul>
+<li><a class="reference internal" href="#id5">数据库模型说明</a><ul>
 <li><a class="reference internal" href="#orm">ORM 概念</a></li>
-<li><a class="reference internal" href="#id5">数据模型可视化</a></li>
+<li><a class="reference internal" href="#id6">数据模型可视化</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">视图函数注解</a><ul>
+<li><a class="reference internal" href="#module-app.main.views">main视图函数</a></li>
+<li><a class="reference internal" href="#module-app.auth.views">auth视图函数</a></li>
 </ul>
 </li>
 </ul>
@@ -143,6 +338,9 @@ forms.py            - 表单类文件
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="get_started.html" title="运行环境搭建"
              >previous</a> |</li>

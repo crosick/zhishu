@@ -1,5 +1,33 @@
 .. _design:
 
+***************
+应用架构说明
+***************
+
+
+
+后端：
+
++ flask
+插件：
+
++ flask-login
++ flask-sqlalchemy
++ flask-pagedown-mathjax
++ flask-moment
++ flask-wtf
++ flask-whooshalchemy
++ ...
+
+前端：
+
++ bootstrap
+插件：
+
++ bootstrap-tagsinput
++ mathjax
+
+
 
 ***************
 目录文件结构与说明
@@ -62,4 +90,24 @@ ORM 概念
 由 sadisplay 生成，变量函数名足够解释自身的功能。。。。
 
 .. image:: _static/schema   .png
+
+
+***************
+视图函数注解
+***************
+
+main视图函数
+=============================
+.. automodule:: app.main.views
+    :members:
+    :undoc-members:
+
+auth视图函数
+=============================
+.. automodule:: app.auth.views
+    :members:
+    :undoc-members:
+
+
+    
 
