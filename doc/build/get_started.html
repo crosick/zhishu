@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>运行环境搭建 &mdash; 知数 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="知数 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="目录文件结构与说明" href="design.html" />
+    <link rel="prev" title="知数(问答网站)说明" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="design.html" title="目录文件结构与说明"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="知数(问答网站)说明"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">知数 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="getting-started">
+<span id="id1"></span><h1>运行环境搭建<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="python2-7-virtualenv">
+<span id="installing-env"></span><h2>安装 python2.7 与 virtualenv<a class="headerlink" href="#python2-7-virtualenv" title="Permalink to this headline">¶</a></h2>
+<p>装python2.7</p>
+<p><a class="reference external" href="https://www.python.org/">https://www.python.org/</a></p>
+<div class="highlight-python"><div class="highlight"><pre>pip install virtualenv
+</pre></div>
+</div>
+<p>这样就装完了</p>
+</div>
+<div class="section" id="python">
+<h2>切换python环境<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<p>进入工程目录</p>
+<p>linux：</p>
+<div class="highlight-python"><div class="highlight"><pre>source env/bin/activate
+</pre></div>
+</div>
+<p>windows：</p>
+<p>先把 ENV 删了</p>
+<div class="highlight-python"><div class="highlight"><pre>virtualenv env
+env\bin\activate
+pip install requirements\prod.txt
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>启动服务器<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>python manage.py runserver
+</pre></div>
+</div>
+<p>然后打开浏览器访问 127.0.0.1:5000</p>
+<p>拜托翻个墙啦，有些cdn我不知道是不是隔在墙外面。</p>
+<img alt="_images/figure1.png" src="_images/figure1.png" />
+<p>这张图没清cookie，你进去后先注册一下</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">运行环境搭建</a><ul>
+<li><a class="reference internal" href="#python2-7-virtualenv">安装 python2.7 与 virtualenv</a></li>
+<li><a class="reference internal" href="#python">切换python环境</a></li>
+<li><a class="reference internal" href="#id2">启动服务器</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">知数(问答网站)说明</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="design.html"
+                        title="next chapter">目录文件结构与说明</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/get_started.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="design.html" title="目录文件结构与说明"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="知数(问答网站)说明"
+             >previous</a> |</li>
+        <li><a href="index.html">知数 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, ekCit.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

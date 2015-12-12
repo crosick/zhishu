@@ -1,3 +1,5 @@
+#-*- coding:utf-8 -*-
+
 from flask import render_template, redirect, url_for, abort, flash, request,\
     current_app, make_response
 from flask.ext.login import login_required, current_user
@@ -9,9 +11,9 @@ from .. import db
 from ..models import Permission, Role, User, Question, Answer, Tag, Vote, Unvote
 from ..decorators import admin_required, permission_required
 
-
 @main.after_app_request
 def after_request(response):
+    """在视图函数处理完后统一调用，负责记录下响应过慢的 query """    
     for query in get_debug_queries():
         if query.duration >= current_app.config['FLASKY_SLOW_DB_QUERY_TIME']:
             current_app.logger.warning(
@@ -23,6 +25,7 @@ def after_request(response):
 
 @main.route('/shutdown')
 def server_shutdown():
+    """为了在测试完后关掉服务器"""
     if not current_app.testing:
         abort(404)
     shutdown = request.environ.get('werkzeug.server.shutdown')
@@ -34,6 +37,7 @@ def server_shutdown():
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
+    """首页的。。。没必要注释吧"""
     page = request.args.get('page', 1, type=int)
     tags = Tag.query.all()
     tag = request.args.get('tag')
@@ -57,6 +61,7 @@ def index():
 @main.route('/delete/<int:id>')
 @login_required
 def delete_question(id):
+    """删除一个问题"""
     question = Question.query.get_or_404(id)
     if current_user != question.author and \
             not current_user.can(Permission.ADMINISTER):
@@ -69,6 +74,7 @@ def delete_question(id):
 
 @main.route('/search', methods=['GET'])
 def search_results():
+    """搜索问题"""
     page = request.args.get('page', 1, type=int)
     keyword = request.args.get('query')
     query = Question.query.whoosh_search(keyword)
@@ -83,6 +89,7 @@ def search_results():
 @main.route('/ask',methods=['GET', 'POST'])
 @login_required
 def ask():
+    """发布问题"""
     form = QuestionForm()     
     if current_user.can(Permission.WRITE_ARTICLES) and \
             form.validate_on_submit():
@@ -108,6 +115,7 @@ def ask():
 
 @main.route('/user/<username>')
 def user(username):
+    """用户个人主页"""
     user = User.query.filter_by(username=username).first_or_404()
     page = request.args.get('page', 1, type=int)
     pagination = user.questions.order_by(Question.timestamp.desc()).paginate(
@@ -121,6 +129,7 @@ def user(username):
 @main.route('/edit-profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
+    """编辑个人信息"""
     form = EditProfileForm()
     if form.validate_on_submit():
         current_user.name = form.name.data
@@ -139,6 +148,7 @@ def edit_profile():
 @login_required
 @admin_required
 def edit_profile_admin(id):
+    """admin编辑个人信息"""
     user = User.query.get_or_404(id)
     form = EditProfileAdminForm(user=user)
     if form.validate_on_submit():
@@ -162,6 +172,7 @@ def edit_profile_admin(id):
 
 @main.route('/question/<int:id>', methods=['GET', 'POST'])
 def question(id):
+    """问题页面"""
     question = Question.query.get_or_404(id)
     question.visited_once()
     form = AnswerForm()
@@ -188,6 +199,7 @@ def question(id):
 @main.route('/vote/<int:answer_id>')
 @login_required
 def vote(answer_id):
+    """给回答投赞成票"""
     answer = Answer.query.get(answer_id)
     user = current_user
     votes = Vote.query.filter_by(user=user, answer=answer)
@@ -203,6 +215,7 @@ def vote(answer_id):
 @main.route('/unvote/<int:answer_id>')
 @login_required
 def unvote(answer_id):
+    """给回答投反对票"""
     answer = Answer.query.get(answer_id)
     user = current_user
     unvotes = Unvote.query.filter_by(user=user, answer=answer)
@@ -218,6 +231,7 @@ def unvote(answer_id):
 @main.route('/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
+    """编辑问题"""
     question = Question.query.get_or_404(id)
     if current_user != question.author and \
             not current_user.can(Permission.ADMINISTER):
@@ -239,6 +253,7 @@ def edit(id):
 @login_required
 @permission_required(Permission.FOLLOW)
 def follow(username):
+    """follow 一个人"""
     user = User.query.filter_by(username=username).first()
     if user is None:
         flash('Invalid user.')
@@ -255,6 +270,7 @@ def follow(username):
 @login_required
 @permission_required(Permission.FOLLOW)
 def unfollow(username):
+    """unfollow 一个人"""
     user = User.query.filter_by(username=username).first()
     if user is None:
         flash('Invalid user.')
