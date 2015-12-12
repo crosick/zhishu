@@ -180,7 +180,7 @@ htmlhelp_basename = 'sphinxdoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
-pdf_documents = ['index', u'知数-设计文档', u'知数-设计文档', u'ekCit(楼燕)']
+pdf_documents = [('index', u'知数-设计文档', u'知数-设计文档', u'ekCit(楼燕)')]
 
 
 # -- Options for LaTeX output ---------------------------------------------
