@@ -1,0 +1,45 @@
+<ul class="answers">
+    {% for answer in answers %}
+    <li class="answer">
+        <div class="answer-thumbnail">
+            <a href="{{ url_for('.user', username=answer.author.username) }}">
+                <img class="img-rounded profile-thumbnail" src="{{ answer.author.gravatar(size=40) }}">
+            </a>
+        </div>
+        <div class="answer-content">
+            <div class="answer-date">{{ moment(answer.timestamp).fromNow() }}</div>
+            <div class="answer-author"><a href="{{ url_for('.user', username=answer.author.username) }}">{{ answer.author.username }}</a></div>
+            <div class="answer-body">
+                {% if answer.disabled %}
+                <p></p><i>This answer has been disabled by a moderator.</i></p>
+                {% endif %}
+                {% if moderate or not answer.disabled %}
+                    {% if answer.body_html %}
+                        {{ answer.body_html | safe }}
+                    {% else %}
+                        {{ answer.body }}
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% if moderate %}
+                <br>
+                {% if answer.disabled %}
+                <a class="btn btn-default btn-xs" href="{{ url_for('.moderate_enable', id=answer.id, page=page) }}">Enable</a>
+                {% else %}
+                <a class="btn btn-danger btn-xs" href="{{ url_for('.moderate_disable', id=answer.id, page=page) }}">Disable</a>
+                {% endif %}
+            {% endif %}
+        </div>
+                    <div class="answer-footer">
+                <div class="answer-footer-left">
+                        &nbsp;
+                </div>
+                <div class="answer-footer-right">
+                    <div class= "footer-right">
+                        <a href="">回复</a>&nbsp;&nbsp;&nbsp;<a href="{{ url_for('.vote', answer_id=answer.id)+'?next=%s' % request.url }}">赞同({{ answer.get_vote_count() }})</a>&nbsp;&nbsp;&nbsp;<a href="{{ url_for('.unvote', answer_id=answer.id)+'?next=%s' % request.url }}">反对({{ answer.get_unvote_count() }})</a>
+                    </div>
+                </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>

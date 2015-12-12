@@ -1,0 +1,113 @@
+{% extends "bootstrap/base.html" %} {% block title %}知数 - 单身狗数学社区{% endblock %} {% block head %} {{ super() }}
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> {% endblock %} {% block navbar %}
+<div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">知数</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{{ url_for('main.index') }}">首页</a></li>
+                {% if current_user.is_authenticated() %}
+                <li><a href="{{ url_for('main.user', username=current_user.username) }}">个人档案</a></li>
+                {% endif %} {% if current_user.can(Permission.WRITE_ARTICLES) %}
+                <li><a href="{{ url_for('main.ask') }}">问问题</a></li>
+                {% endif %}
+                <li><a href="{{ url_for('main.ask') }}">文章</a></li>
+                <li><a href="{{ url_for('main.ask') }}">wiki</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if current_user.can(Permission.MODERATE_COMMENTS) %}
+                <li><a href="{{ url_for('main.moderate') }}">设置回答</a></li>
+                {% endif %}
+                <form class="navbar-form navbar-left" role="search" method="GET" action="/search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search" name="query">
+                    </div>
+                    <button type="submit" class="btn btn-default" style="display:none;">Submit</button>
+                </form>
+                {% if current_user.is_authenticated() %}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="{{ current_user.gravatar(size=18) }}"> Account <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+                    </ul>
+                </li>
+                {% else %}
+                <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block content %}
+<div class="container">
+    {% block main %} {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+    <div class="questions col-md-9">
+        {% block page_content %}{% endblock %}
+    </div>
+    <div class="user_info col-md-3">
+        {% block user_info %} {% if current_user.is_authenticated() %}
+        <div class="thumbnail">
+            <div class="potrait">
+                <img src="{{ current_user.gravatar(size=256) }}" alt="...">
+            </div>
+            <div class="summary caption">
+                <div class="summary_unit answer_count">
+                    <h4>回答数</h4>
+                    <p>{{ current_user.get_answer_count() }}</p>
+                </div>
+                <div class="summary_unit like_count">
+                    <h4>获赞数</h4>
+                    <p>33</p>
+                </div>
+                <div class="summary_unit followed_count">
+                    <h4>被关注</h4>
+                    <p>{{ current_user.get_follower_count()-1 }}</p>
+                </div>
+            </div>
+            <div class="caption">
+                <div class="btn-group btn-group-justified" role="group">
+                    <a href="#" class="btn btn-primary" role="button">私信 </a><a href="{{ url_for('main.ask') }}" class="btn btn-default" role="button">问问题</a>
+                </div>
+            </div>
+        </div>
+        <div class="list-group login_list">
+            <a href="auth/logout" class="list-group-item">Log Out</a>
+        </div>
+        {% else %}
+        <div class="list-group login_list">
+            <a href="auth/login" class="list-group-item">Log in</a>
+            <a href="auth/register" class="list-group-item">Register</a>
+        </div>
+        {% endif %} {% endblock %}
+    </div>
+    {% endblock%}
+</div>
+
+{% block footer %}
+
+<div id="footer" class="col-md-12">
+    <p>Copyright &copy; 2015 知数 - 一个单身狗数学社区 designed by ekCit</p>
+</div>
+{% endblock %}
+
+{% endblock %} {% block scripts %} {{ super() }} {{ moment.include_moment() }} {% endblock %}
+
+

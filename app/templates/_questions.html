@@ -1,0 +1,66 @@
+<ul class="questions">
+    {% for question in questions %}
+    <li class="question">
+        <div class="question-thumbnail">
+            <!-- <a href="{{ url_for('.user', username=question.author.username) }}">
+                <img class="img-rounded profile-thumbnail" src="{{ question.author.gravatar(size=40) }}">
+            </a> -->
+            <div class="reply-count">
+                <p>回答</p>
+                <p>{{ question.get_answer_count() }}</p>
+            </div>
+        </div>
+        <div class="question-content">
+            <div class="question-date">{{ moment(question.timestamp).fromNow() }}</div>
+            <!-- <div class="question-author"><a href="{{ url_for('.user', username=question.author.username) }}">{{ question.author.username }}</a></div> -->
+            <div class="question-body question-entry">
+                <!-- {% if question.body_html %} {{ question.body_html | safe }} {% else %} {{ question.body }} {% endif %} -->
+                <a href="{{ url_for('.question', id=question.id) }}">{{ question.title }}</a>
+                &nbsp;&nbsp;
+                
+                {% if current_user == question.author %}
+                <a href="{{ url_for('.edit', id=question.id) }}">
+                    <span class="label label-warning label-small">Edit</span>
+                </a>
+                <a href="{{ url_for('.delete_question', id=question.id) }}">
+                    <span class="label label-danger label-small">Delete</span>
+                </a>
+                {% elif current_user.is_administrator() %}
+                                <a href="{{ url_for('.edit', id=question.id) }}">
+                    <span class="label label-warning label-small">Edit [Admin]</span>
+                </a>
+                    <a href="{{ url_for('.delete_question', id=question.id) }}">
+                    <span class="label label-danger label-small">Delete [Admin]</span>
+                </a>
+                {% endif %}
+                
+            </div>
+            <div class="question-footer">
+                <div class="question-footer-left">
+                    {% for tag_item in question.tags %}
+                    <a href="/?tag={{ tag_item.tag }}">
+                        <span class="label label-primary">{{ tag_item.tag }}</span>
+                    </a>
+                    {% endfor %}
+                    &nbsp;
+                </div>
+                <div class="question-footer-right">
+                                        <!-- {% if current_user == question.author %}
+                    <a href="{{ url_for('.edit', id=question.id) }}">
+                        <span class="label label-primary">Edit</span>
+                    </a>
+                    {% elif current_user.is_administrator() %}
+                    <a href="{{ url_for('.edit', id=question.id) }}">
+                        <span class="label label-danger">Edit [Admin]</span>
+                    </a>
+                    {% endif %} -->
+                    <!-- <a href="{{ url_for('.question', id=question.id) }}">
+                        <span class="label label-default">Permalink</span>
+                    </a> -->
+                    <div class= "view-count">已浏览 {{ question.visited_count }} 次, 由<a href="{{ url_for('.user', username=question.author.username) }}">{{ question.author.username }}</a> 发表  </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>

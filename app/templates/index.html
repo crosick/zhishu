@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% import "bootstrap/wtf.html" as wtf %} {% import "_macros.html" as macros %} {% block page_content %}
+<div class="question-tabs">
+    <ol class="breadcrumb">
+      <li class="active"><a href="{{ url_for('.index') }}">全部</a></li>
+      {% for tag in tags %}
+      <li><a href="{{ request.url.split('?')[0] + '?tag=%s' % tag.tag }}">{{ tag.tag }}</a></li>
+      {% endfor %}
+    </ol>
+    <ul class="nav nav-tabs">
+        <li{% if not show_followed %} class="active" {% endif %}><a href="{{ url_for('.show_all') }}">All</a></li>
+            {% if current_user.is_authenticated() %}
+            <li{% if show_followed %} class="active" {% endif %}><a href="{{ url_for('.show_followed') }}">Followers</a></li>
+                {% endif %}
+    </ul>
+    {% include '_questions.html' %}
+</div>
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.index') }}
+</div>
+{% endif %} {% endblock %} {% block scripts %} {{ super() }} {{ pagedown.include_pagedown() }} {% endblock %}

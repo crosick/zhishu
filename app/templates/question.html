@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block scripts %} 
+{{ super() }} 
+{{ moment.include_moment() }} 
+{% include '_math.html' %}
+{% endblock %}
+
+
+{% block page_content %}
+<div class="post">
+{% include '_question.html' %}
+<h4 id="answers">Answers</h4>
+{% if current_user.can(Permission.COMMENT) %}
+<div class="answer-form">
+    {{ wtf.quick_form(form) }}
+</div>
+{% endif %}
+{% include '_answers.html' %}
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.question', fragment='#answers', id=question.id) }}
+</div>
+</div>
+{% endif %}
+{% endblock %}

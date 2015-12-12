@@ -1,0 +1,10 @@
+<div class="post-main">
+    <h2>{{ question.title }}</h2>
+    <hr/>
+    <div class="post-header">
+    发表于 {{ moment(question.timestamp).fromNow() }}    
+    </div>
+    <div class="post-body">
+        {{ question.body_html | safe }}
+    </div>
+</div>
